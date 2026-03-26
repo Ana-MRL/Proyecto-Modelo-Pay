@@ -1,0 +1,13 @@
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Carpetas de dependencias
+node_modules/
+
+# Archivos de entorno (contienen informacion sensible como contrasenas y claves)
+.env
+
+# Archivos temporales y logs
+*.tmp
+*.log
