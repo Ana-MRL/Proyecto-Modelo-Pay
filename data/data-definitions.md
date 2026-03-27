@@ -63,7 +63,58 @@ Los registros en pesos se usan directamente sin conversión.
 
 ## Hoja: Abonos
 
-> Pendiente de definir.
+Contiene los registros de pagos y abonos realizados por las empresas acreditadas.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `Portfolio Id` | Numérico (ID) | Identificador del movimiento. Se conecta con la hoja **Creditos** a nivel de ministración. |
+| `Person Id` | Numérico (ID) | Identificador de la empresa acreditada. Se conecta con la hoja **Clientes**. |
+| `Full Name` | Texto | Nombre de la empresa acreditada. |
+| `Product` | Texto | Producto al que corresponde el abono. Se filtran únicamente los registros cuyo nombre contenga la palabra **PAY**. |
+| `Application Date` | Fecha | Fecha en que se realizó el pago o abono. |
+| `Amount` | Numérico | Monto total pagado. |
+| `Capital` | Numérico | Porción del pago aplicada a capital. Ver nota de conversión de divisa abajo. |
+| `Interest` | Numérico | Porción del pago aplicada a intereses. |
+| `Penalty` | Numérico | Monto pagado en moratorios. Si es mayor a cero, indica que el cliente se atrasó en su pago — variable clave para el modelo. |
+| `Payment Currency` | Texto | Divisa del pago. |
+| `Agreed Exchange Rate` | Numérico | Tipo de cambio pactado. Se usa para convertir el capital de pagos en dólares a pesos. |
+
+---
+
+### Filtros a aplicar
+
+| Filtro | Criterio |
+|---|---|
+| Producto | Conservar únicamente registros donde `Product` contenga la palabra **PAY** |
+
+---
+
+### Notas de transformación
+
+#### Conversión de divisa
+
+Los registros cuyo `Payment Currency` sea **DOLARES** deben convertirse antes de cualquier análisis:
+
+```
+Capital (MXN) = Capital × Agreed Exchange Rate
+```
+
+Los registros en pesos se usan directamente sin conversión.
+
+#### Indicador de morosidad
+
+`Penalty > 0` indica que el cliente pagó moratorios, lo que implica que se atrasó en al menos un pago. Esta columna es un insumo directo para construir la variable objetivo del modelo.
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **Creditos** | `Portfolio Id` | Permite asociar cada abono a su ministración correspondiente. |
+| **Clientes** | `Person Id` | Permite obtener RFC y otros datos de la empresa acreditada. |
 
 ---
 
@@ -72,3 +123,5 @@ Los registros en pesos se usan directamente sin conversión.
 | Fecha | Descripción |
 |---|---|
 | 2026-03-27 | Definición inicial de la hoja Creditos |
+| 2026-03-27 | Agrega Person Id y relación con Clientes en Creditos |
+| 2026-03-27 | Definición de la hoja Abonos |
