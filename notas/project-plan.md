@@ -15,8 +15,8 @@
 
 ### Fase 1 — Exploración de datos (EDA)
 **Archivo:** `codigo/01-eda.ipynb`
-**Estado:** Pendiente
-**Fecha de inicio:** —
+**Estado:** En progreso
+**Fecha de inicio:** 2026-03-27
 **Fecha de cierre:** —
 
 - [ ] Cargar y revisar la base de datos (`data/Base de datos.xlsx`)
