@@ -118,6 +118,40 @@ Los registros en pesos se usan directamente sin conversión.
 
 ---
 
+## Hoja: Clientes
+
+Contiene el catálogo de personas registradas en el sistema. Para este modelo, se filtra únicamente a empresas (personas morales) con clasificación de cliente.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `Person Id` | Numérico (ID) | Identificador de la empresa. Llave de unión con las hojas **Creditos** y **Abonos**. |
+| `Full Name` | Texto | Nombre de la empresa. |
+| `Person Type` | Texto | Indica si es persona física o moral. Se filtran únicamente las **personas morales**. |
+| `Taxpayer ID Number` | Texto | RFC del cliente. |
+| `Person Classification` | Texto | Clasificación del registro (cliente, prospecto, obligado solidario, etc.). Se filtran únicamente los **clientes**. |
+
+---
+
+### Filtros a aplicar
+
+| Filtro | Criterio |
+|---|---|
+| Tipo de persona | Conservar únicamente registros donde `Person Type` sea **persona moral** |
+| Clasificación | Conservar únicamente registros donde `Person Classification` sea **cliente** |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **Creditos** | `Person Id` | Permite asociar líneas y ministraciones a cada empresa. |
+| **Abonos** | `Person Id` | Permite asociar pagos a cada empresa. |
+
+---
+
 ## Historial de cambios
 
 | Fecha | Descripción |
@@ -125,3 +159,4 @@ Los registros en pesos se usan directamente sin conversión.
 | 2026-03-27 | Definición inicial de la hoja Creditos |
 | 2026-03-27 | Agrega Person Id y relación con Clientes en Creditos |
 | 2026-03-27 | Definición de la hoja Abonos |
+| 2026-03-27 | Definición de la hoja Clientes |
