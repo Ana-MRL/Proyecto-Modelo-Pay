@@ -152,6 +152,50 @@ Contiene el catálogo de personas registradas en el sistema. Para este modelo, s
 
 ---
 
+## Hoja: csv_score
+
+Contiene los resultados de consulta al Buró de Crédito (score PyME) por empresa.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `FECHA CARGA` | Fecha | Fecha en que se realizó la consulta al Buró de Crédito. |
+| `PRIMERNOMBRE` | Texto | Nombre de la empresa consultada. |
+| `VALORSCORE` | Numérico | Score PyME asignado por Buró de Crédito. Indica la calificación crediticia de la empresa. |
+
+---
+
+### Filtros a aplicar
+
+Ninguno definido por el momento.
+
+---
+
+### Limitante: relación por nombre aproximado
+
+Esta hoja **no tiene un ID compartido** con las demás hojas. La única columna de unión posible es el nombre de la empresa (`PRIMERNOMBRE`), pero los nombres no coinciden exactamente con los de las hojas **Creditos**, **Abonos** o **Clientes**.
+
+La relación deberá hacerse mediante **coincidencia aproximada (fuzzy matching)**. Estrategias a evaluar:
+
+| Estrategia | Descripción |
+|---|---|
+| Normalización de texto | Quitar tildes, mayúsculas, puntuación y palabras genéricas (S.A., DE C.V., etc.) antes de comparar |
+| Similitud de cadenas | Usar métricas como Levenshtein o `rapidfuzz` en Python |
+| Revisión manual | Para casos ambiguos, validar la asignación manualmente |
+
+> Esta limitante puede afectar la cobertura del score PyME en el modelo. Se recomienda documentar los casos no emparejados.
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Tipo de join | Descripción |
+|---|---|---|---|
+| **Clientes** | `PRIMERNOMBRE` ↔ `Full Name` | Aproximado (fuzzy) | Permite asociar el score PyME a cada empresa en el catálogo de clientes. |
+
+---
+
 ## Historial de cambios
 
 | Fecha | Descripción |
@@ -160,3 +204,4 @@ Contiene el catálogo de personas registradas en el sistema. Para este modelo, s
 | 2026-03-27 | Agrega Person Id y relación con Clientes en Creditos |
 | 2026-03-27 | Definición de la hoja Abonos |
 | 2026-03-27 | Definición de la hoja Clientes |
+| 2026-03-27 | Definición de la hoja csv_score (con nota de fuzzy matching) |
