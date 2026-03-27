@@ -11,6 +11,7 @@ Contiene los registros de líneas de crédito y ministraciones del producto Pay.
 | Columna | Tipo | Descripción |
 |---|---|---|
 | `Portfolio Id` | Numérico (ID) | Identificador del movimiento. Se conecta con la tabla de la hoja **Abonos**. |
+| `Person Id` | Numérico (ID) | Identificador de la empresa acreditada. Se conecta con la hoja **Clientes** para extraer RFC y otros datos. |
 | `External Code` | ID | ID del movimiento en la página web de Superia Capital. |
 | `Line` | Numérico (ID) | Identificador numérico de la línea de crédito. |
 | `Name` | Texto | Nombre de la empresa acreditada. |
@@ -56,6 +57,7 @@ Los registros en pesos se usan directamente sin conversión.
 | Hoja | Columna de unión | Descripción |
 |---|---|---|
 | **Abonos** | `Portfolio Id` | Permite asociar los abonos realizados a cada movimiento. |
+| **Clientes** | `Person Id` | Permite obtener RFC y otros datos de la empresa acreditada. |
 
 ---
 
