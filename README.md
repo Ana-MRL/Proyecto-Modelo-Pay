@@ -1,29 +1,23 @@
-# Proyecto de Practica - Superia Capital
+# Modelo Predictivo de Riesgo - Superia Capital Pay
 
-## Descripcion
+## Descripción
 
-Este es un proyecto de practica creado durante el programa de AI Enablement de Superia Capital. Su proposito es aprender a usar Claude Code para gestionar proyectos.
+Proyecto de modelo predictivo de riesgo para el producto Pay de Superia Capital. Su objetivo es analizar y predecir el riesgo asociado a las operaciones del producto Pay mediante técnicas de modelado estadístico y machine learning.
 
-## Estructura del proyecto
+## Estructura de carpetas
 
 ```
 PROYECTOS/
-├── docs/                         # Documentacion del proyecto
-│   ├── README.md                 # Descripcion de la carpeta docs
-│   └── notas-del-programa.md     # Notas y aprendizajes del programa AI Enablement
-├── data/                         # Archivos de datos de entrada
-│   └── README.md                 # Descripcion de la carpeta data
-├── reports/                      # Reportes generados
-│   └── README.md                 # Descripcion de la carpeta reports
-├── .gitignore                    # Archivos y carpetas excluidos del control de versiones
-├── notas.txt                     # Nota inicial del proyecto
-└── README.md                     # Este archivo
+├── README.md
+├── .gitignore
+├── notas/
+│   └── notas.md
+├── data/
+│   └── README.md
+└── codigo/
+    └── README.md
 ```
 
-## Autor
+## Fecha de creación
 
-Participante del programa
-
-## Fecha de creacion
-
-2026-03-26
+27 de marzo de 2026
