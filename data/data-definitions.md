@@ -196,6 +196,199 @@ La relación deberá hacerse mediante **coincidencia aproximada (fuzzy matching)
 
 ---
 
+## Hoja: balance_sheet
+
+Contiene los estados de situación financiera (balance general) anuales de las empresas acreditadas. Es una fuente clave de variables financieras para el modelo predictivo.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `id` | Numérico (ID) | Identificador único del registro. |
+| `profile_id` | Numérico (ID) | Identificador de la empresa. Se conecta con `superia_entity` a través de `profile_entity_id`. |
+| `year` | Numérico | Año al que corresponde el balance. |
+| `total_assets` | Numérico | Activos totales de la empresa. |
+| `current_assets` | Numérico | Activos circulantes (corto plazo). |
+| `cash_equivalents` | Numérico | Efectivo y equivalentes de efectivo. |
+| `accounts_receivable` | Numérico | Cuentas por cobrar. |
+| `inventory` | Numérico | Inventario. |
+| `lt_asset` | Numérico | Activos de largo plazo. |
+| `property_plant_equipment` | Numérico | Propiedades, planta y equipo. |
+| `intangible_assets` | Numérico | Activos intangibles. |
+| `total_liabilities` | Numérico | Pasivos totales. |
+| `common_stock` | Numérico | Capital social. |
+| `sh_equity` | Numérico | Capital contable (patrimonio de los accionistas). |
+| `retained_earnings` | Numérico | Utilidades retenidas. |
+| `current_liabilities` | Numérico | Pasivos circulantes (corto plazo). |
+| `lt_liabilities` | Numérico | Pasivos de largo plazo. |
+| `current_debt` | Numérico | Deuda de corto plazo. |
+| `lt_debt` | Numérico | Deuda de largo plazo. |
+| `total_liabilities_sh_equity` | Numérico | Suma de pasivos totales y capital contable (equivale a activos totales). |
+| `accounts_payable` | Numérico | Cuentas por pagar. |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **superia_entity** | `profile_id` ↔ `profile_entity_id` | Permite asociar el balance a cada empresa y obtener su RFC. |
+
+---
+
+## Hoja: annual_invoices_comparisons
+
+Contiene comparaciones anuales de facturación de las empresas acreditadas, derivadas del SAT. Incluye ingresos, gastos, márgenes y métricas de liquidez operativa. Es una fuente importante de variables financieras para el modelo.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `id` | Numérico (ID) | Identificador único del registro. |
+| `profile_id` | Numérico (ID) | Identificador de la empresa. Se conecta con `superia_entity` a través de `profile_entity_id`. |
+| `period` | Numérico | Período (año) al que corresponde la comparación. |
+| `total_income` | Numérico | Ingresos totales facturados. |
+| `income_payment_pending` | Numérico | Ingresos con pago pendiente de cobro. |
+| `total_income_cancelled` | Numérico | Ingresos de facturas canceladas. |
+| `income_discounts` | Numérico | Descuentos aplicados a ingresos. |
+| `income_credit_notes` | Numérico | Notas de crédito en ingresos. |
+| `net_income` | Numérico | Ingresos netos. |
+| `income_due_upon_receipt` | Numérico | Ingresos con vencimiento inmediato (pago de contado). |
+| `income_due_over_time` | Numérico | Ingresos con vencimiento a plazo. |
+| `collected_income_due_over_time` | Numérico | Porción ya cobrada de los ingresos a plazo. |
+| `total_expenses` | Numérico | Gastos totales facturados. |
+| `received_payment_pending` | Numérico | Gastos con pago pendiente. |
+| `total_expenses_cancelled` | Numérico | Gastos de facturas canceladas. |
+| `expenses_discounts` | Numérico | Descuentos en gastos. |
+| `expenses_credit_notes` | Numérico | Notas de crédito en gastos. |
+| `payroll` | Numérico | Nómina. |
+| `net_expenses_plus_payroll` | Numérico | Gastos netos incluyendo nómina. |
+| `margin` | Numérico | Margen operativo (ingresos netos − gastos netos). |
+| `expenses_due_upon_receipt` | Numérico | Gastos con vencimiento inmediato. |
+| `expenses_due_over_time` | Numérico | Gastos con vencimiento a plazo. |
+| `paid_expenses_due_over_time` | Numérico | Porción ya pagada de los gastos a plazo. |
+| `days_payable_outstanding` | Numérico | Días promedio que tarda la empresa en pagar a sus proveedores (DPO). |
+| `days_sales_outstanding` | Numérico | Días promedio que tarda la empresa en cobrar a sus clientes (DSO). |
+| `net_expenses` | Numérico | Gastos netos sin nómina. |
+| `profit_or_loss` | Numérico | Utilidad o pérdida del período. |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **superia_entity** | `profile_id` ↔ `profile_entity_id` | Permite asociar la facturación a cada empresa y obtener su RFC. |
+
+---
+
+## Hoja: employees
+
+Contiene el historial del número de empleados por empresa y período. Sirve como indicador del tamaño y estabilidad operativa de la empresa acreditada.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `id` | Numérico (ID) | Identificador único del registro. |
+| `profile_id` | Numérico (ID) | Identificador de la empresa. Se conecta con `superia_entity` a través de `profile_entity_id`. |
+| `total` | Numérico | Total de empleados en el período. |
+| `year` | Numérico | Año del registro. |
+| `month` | Numérico | Mes del registro. |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **superia_entity** | `profile_id` ↔ `profile_entity_id` | Permite asociar el número de empleados a cada empresa. |
+
+---
+
+## Hoja: cash_flow
+
+Contiene el flujo de efectivo por empresa y período, derivado de información bancaria. Permite evaluar la liquidez real de la empresa acreditada.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `profile_id` | Numérico (ID) | Identificador de la empresa. Se conecta con `superia_entity` a través de `profile_entity_id`. |
+| `start_date` | Fecha | Fecha de inicio del período analizado. |
+| `amount` | Numérico | Monto total del período. |
+| `INFLOW` | Numérico | Entradas de efectivo. |
+| `OUTFLOW` | Numérico | Salidas de efectivo. |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **superia_entity** | `profile_id` ↔ `profile_entity_id` | Permite asociar el flujo de efectivo a cada empresa. |
+
+---
+
+## Hoja: income_statement
+
+Contiene los estados de resultados anuales de las empresas acreditadas. Permite evaluar la rentabilidad y estructura de costos de cada empresa.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `id` | Numérico (ID) | Identificador único del registro. |
+| `profile_id` | Numérico (ID) | Identificador de la empresa. Se conecta con `superia_entity` a través de `profile_entity_id`. |
+| `year` | Numérico | Año al que corresponde el estado de resultados. |
+| `sales` | Numérico | Ventas totales. |
+| `cost_sales` | Numérico | Costo de ventas. |
+| `gross_income` | Numérico | Utilidad bruta (ventas − costo de ventas). |
+| `operating_costs` | Numérico | Costos y gastos operativos. |
+| `operating_income` | Numérico | Utilidad operativa. |
+| `cost_finance` | Numérico | Costos financieros (intereses, comisiones, etc.). |
+| `net_income` | Numérico | Utilidad neta. |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **superia_entity** | `profile_id` ↔ `profile_entity_id` | Permite asociar el estado de resultados a cada empresa y obtener su RFC. |
+
+---
+
+## Hoja: csv_vc_pyme
+
+Contiene las variables califica del reporte de Buró de Crédito PyME por empresa. Complementa el score de `csv_score` con variables individuales del comportamiento crediticio.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `FECHA CARGA` | Fecha | Fecha en que se realizó la consulta al Buró de Crédito. |
+| `PRIMERNOMBRE` | Texto | Nombre de la empresa consultada. **Ojo:** los nombres no coinciden exactamente con los de la hoja **Creditos** — se requiere fuzzy matching para empatar. |
+| `5` | Numérico continuo (0 a 1) | Porcentaje de pagos en tiempo con instituciones financieras **bancarias**. |
+| `6` | Numérico continuo (0 a 1) | Porcentaje de pagos en tiempo con instituciones financieras **no bancarias**. |
+| `14` | Binaria (0 o 1) | Presencia de quitas, castigos y reestructuras con instituciones financieras bancarias en los últimos 12 meses. `0` = no existe, `1` = sí existe. |
+
+---
+
+### Limitante: relación por nombre aproximado
+
+Esta hoja **no tiene un ID compartido** con las demás hojas. La unión debe hacerse por nombre de empresa (`PRIMERNOMBRE`), que no coincide exactamente con los nombres en otras hojas. Se requiere **fuzzy matching** (ver estrategias en la hoja `csv_score`).
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Tipo de join | Descripción |
+|---|---|---|---|
+| **Clientes** | `PRIMERNOMBRE` ↔ `Full Name` | Aproximado (fuzzy) | Permite asociar las variables califica a cada empresa del catálogo de clientes. |
+
+---
+
 ## Hoja: superia_entity
 
 Contiene el catálogo de entidades registradas en Superia Capital. Para este modelo, se usa únicamente como puente de unión entre el RFC y los datos de crédito.
