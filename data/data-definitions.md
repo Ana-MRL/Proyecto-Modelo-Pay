@@ -16,7 +16,7 @@ Contiene los registros de líneas de crédito y ministraciones del producto Pay.
 | `Line` | Numérico (ID) | Identificador numérico de la línea de crédito. |
 | `Name` | Texto | Nombre de la empresa acreditada. |
 | `Product` | Texto | Producto de la línea de crédito. Para este modelo, se filtran únicamente los registros cuyo nombre contenga la palabra **PAY**. |
-| `Is Line` | Booleano | Indica si el registro corresponde a la **línea de crédito** (`True`) o a una **ministración** (`False`). |
+| `Is line` | Texto | Indica si el registro corresponde a la **línea de crédito** (`SI`) o a una **ministración** (`NO`). |
 | `Opening Date` | Fecha | Fecha de apertura de la línea o ministración. |
 | `Due Date` | Fecha | Fecha de vencimiento de la línea o ministración. |
 | `Amount` | Numérico | Monto de la línea o ministración. Ver nota de conversión de divisa abajo. |
@@ -193,6 +193,27 @@ La relación deberá hacerse mediante **coincidencia aproximada (fuzzy matching)
 | Hoja | Columna de unión | Tipo de join | Descripción |
 |---|---|---|---|
 | **Clientes** | `PRIMERNOMBRE` ↔ `Full Name` | Aproximado (fuzzy) | Permite asociar el score PyME a cada empresa en el catálogo de clientes. |
+
+---
+
+## Hoja: superia_entity
+
+Contiene el catálogo de entidades registradas en Superia Capital. Para este modelo, se usa únicamente como puente de unión entre el RFC y los datos de crédito.
+
+### Columnas relevantes
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `profile_entity_id` | Numérico (ID) | Identificador único de cada cliente en el sistema. |
+| `rfc` | Texto | RFC de la entidad. Llave de unión con la hoja **Creditos** a través de la columna `Taxpayer ID Number`. |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **Creditos** | `rfc` ↔ `Taxpayer ID Number` | Permite asociar cada entidad con sus créditos registrados. |
 
 ---
 
