@@ -2,6 +2,18 @@
 
 ---
 
+## Avance del proyecto — 2026-04-06
+
+### Estado actual
+
+- `2026-04-06` — Revisión general del estado del proyecto
+- `2026-04-06` — `01-eda.ipynb` eliminado del repo; reemplazado por `01-model-coding.ipynb` como notebook de trabajo principal
+- `2026-04-06` — `CosechasPAY.ipynb` agregado al repo como notebook original de referencia/respaldo
+- `2026-04-06` — `data/Base de datos.xlsx` actualizada con datos más recientes de la fuente externa (actualización periódica esperada)
+- `2026-04-06` — Cambios commiteados y push a GitHub (`main`)
+
+---
+
 ## Avance del proyecto — 2026-03-27
 
 ### Estado actual
