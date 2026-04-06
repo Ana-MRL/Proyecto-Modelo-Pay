@@ -10,6 +10,8 @@
 - `2026-04-06` — `01-eda.ipynb` eliminado del repo; reemplazado por `01-model-coding.ipynb` como notebook de trabajo principal
 - `2026-04-06` — `CosechasPAY.ipynb` agregado al repo como notebook original de referencia/respaldo
 - `2026-04-06` — `data/Base de datos.xlsx` actualizada con datos más recientes de la fuente externa (actualización periódica esperada)
+- `2026-04-06` — Creado `codigo/codigo.md` con documentación explicativa del notebook `01-model-coding.ipynb`
+- `2026-04-06` — `data/data-definitions.md` ampliado: correcciones en Creditos, Abonos y Clientes; definición de 8 hojas nuevas (balance_sheet, annual_invoices_comparisons, employees, cash_flow, income_statement, superia_entity, csv_vc_pyme, xls_registro)
 - `2026-04-06` — Cambios commiteados y push a GitHub (`main`)
 
 ---

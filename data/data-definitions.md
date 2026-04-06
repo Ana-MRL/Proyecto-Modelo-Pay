@@ -522,3 +522,15 @@ Las siguientes columnas existen con los tres prefijos. Ejemplo: `p_revenue`, `u_
 | 2026-03-27 | Definición de la hoja Abonos |
 | 2026-03-27 | Definición de la hoja Clientes |
 | 2026-03-27 | Definición de la hoja csv_score (con nota de fuzzy matching) |
+| 2026-04-06 | Corrige tipo y valores de `Is line` en Creditos (Booleano → Texto, SI/NO) |
+| 2026-04-06 | Corrige nombre `Full Name` → `Full Name Or Business Name` en Clientes |
+| 2026-04-06 | Agrega columnas faltantes en Creditos: `Loan Type`, `Period Number`, `Cosecha` |
+| 2026-04-06 | Agrega columna `Installment` en Abonos |
+| 2026-04-06 | Definición de la hoja balance_sheet |
+| 2026-04-06 | Definición de la hoja annual_invoices_comparisons |
+| 2026-04-06 | Definición de la hoja employees |
+| 2026-04-06 | Definición de la hoja cash_flow |
+| 2026-04-06 | Definición de la hoja income_statement |
+| 2026-04-06 | Definición de la hoja superia_entity |
+| 2026-04-06 | Definición de la hoja csv_vc_pyme |
+| 2026-04-06 | Definición de la hoja xls_registro |
