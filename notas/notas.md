@@ -12,6 +12,15 @@
 - `2026-04-06` — `data/Base de datos.xlsx` actualizada con datos más recientes de la fuente externa (actualización periódica esperada)
 - `2026-04-06` — Creado `codigo/codigo.md` con documentación explicativa del notebook `01-model-coding.ipynb`
 - `2026-04-06` — `data/data-definitions.md` ampliado: correcciones en Creditos, Abonos y Clientes; definición de 8 hojas nuevas (balance_sheet, annual_invoices_comparisons, employees, cash_flow, income_statement, superia_entity, csv_vc_pyme, xls_registro)
+- `2026-04-06` — Fase 1 EDA agregada al notebook `01-model-coding.ipynb`:
+  - Carga de tablas adicionales: `balance_sheet`, `income_statement`, `cash_flow`, `annual_invoices_comparisons`, `employees`, `superia_entity`, `xls_registro`, `csv_score`, `csv_vc_pyme`
+  - Resumen de estructura (dimensiones y columnas) por tabla
+  - Análisis de valores nulos por tabla y columna
+  - Construcción de tabla maestra de clientes PAY via RFC / `profile_id`
+  - Cobertura por fuente: muestra clientes encontrados y lista los no encontrados por nombre
+  - Normalización de nombres para match con tablas de Buró (quita tildes, puntuación y sufijos legales)
+  - Estadísticas descriptivas de variables clave de todas las fuentes
+  - Columnas `5`, `6`, `14` de `csv_vc_pyme` referenciadas como texto
 - `2026-04-06` — Cambios commiteados y push a GitHub (`main`)
 
 ---
