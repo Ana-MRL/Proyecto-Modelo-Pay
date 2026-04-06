@@ -414,6 +414,105 @@ Contiene el catálogo de entidades registradas en Superia Capital. Para este mod
 
 ---
 
+## Hoja: xls_registro
+
+Contiene el registro de evaluación crediticia de cada cliente. Combina datos generales, información de Buró de Crédito, resultados del modelo interno Cub y estados financieros en tres períodos distintos.
+
+### Prefijos de estados financieros
+
+| Prefijo | Descripción |
+|---|---|
+| `p_` | Penúltimo período anual |
+| `u_` | Último período anual |
+| `i_` | Último registro disponible (puede ser parcial o anual) |
+
+---
+
+### Columnas relevantes
+
+#### Generales
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `id` | Numérico (ID) | Identificador único del registro. |
+| `rfc` | Texto | RFC de la empresa. Llave de unión con otras tablas. |
+| `reg_date` | Fecha | Fecha de registro del cliente. |
+| `client_name` | Texto | Nombre del cliente. |
+| `buro_rev_date` | Fecha | Fecha de consulta al Buró de Crédito. |
+| `buro_active_loans` | Numérico | Número de créditos activos en Buró. |
+| `buro_active_amount` | Numérico | Monto total de créditos activos en Buró. |
+| `buro_largest_paid` | Numérico | Monto del crédito más grande ya pagado en Buró. |
+| `buro_late_loans` | Numérico | Número de créditos con atraso en Buró. |
+| `buro_late_amount` | Numérico | Monto total de créditos con atraso en Buró. |
+| `loan_start_date` | Fecha | Fecha de inicio del crédito con Superia. |
+| `operation_quantity` | Numérico | Número de operaciones con Superia. |
+| `late_quantity` | Numérico | Número de atrasos registrados con Superia. |
+| `latest_late_date` | Fecha | Fecha del último atraso. |
+| `latest_late_amount` | Numérico | Monto del último atraso. |
+| `loan_utilization` | Numérico | Porcentaje de utilización de la línea de crédito. |
+| `max_late_days` | Numérico | Máximo de días de atraso registrado. |
+| `cub_q_score` | Numérico | Score cualitativo del modelo interno Cub. |
+| `cub_c_score` | Numérico | Score cuantitativo del modelo interno Cub. |
+| `cub_score` | Numérico | Score global del modelo interno Cub. |
+| `cub_p_default` | Numérico | Probabilidad de default según Cub. |
+| `cub_expected_shortfall` | Numérico | Pérdida esperada en escenario adverso según Cub. |
+| `cub_expected_loss` | Numérico | Pérdida esperada según Cub. |
+| `cub_rating` | Texto | Calificación crediticia según Cub. |
+
+#### Estados financieros (`p_`, `u_`, `i_`)
+
+Las siguientes columnas existen con los tres prefijos. Ejemplo: `p_revenue`, `u_revenue`, `i_revenue`.
+
+| Columna (sin prefijo) | Tipo | Descripción |
+|---|---|---|
+| `result_date` | Fecha | Fecha del estado financiero. |
+| `revenue` | Numérico | Ingresos totales. |
+| `gross_profit` | Numérico | Utilidad bruta. |
+| `ebit` | Numérico | Utilidad antes de intereses e impuestos. |
+| `interest_expense` | Numérico | Gastos financieros. |
+| `net_profit` | Numérico | Utilidad neta. |
+| `current_assets` | Numérico | Activos circulantes. |
+| `cash_equivalents` | Numérico | Efectivo y equivalentes. |
+| `inventory` | Numérico | Inventario. |
+| `account_receivable` | Numérico | Cuentas por cobrar. |
+| `ppe` | Numérico | Propiedades, planta y equipo. |
+| `lt_assets` | Numérico | Activos de largo plazo. |
+| `total_assets` | Numérico | Activos totales. |
+| `current_liabilities` | Numérico | Pasivos circulantes. |
+| `accounts_payable` | Numérico | Cuentas por pagar. |
+| `st_debt` | Numérico | Deuda de corto plazo. |
+| `total_debt` | Numérico | Deuda total. |
+| `lt_liabilities` | Numérico | Pasivos de largo plazo. |
+| `total_liabilities` | Numérico | Pasivos totales. |
+| `common_stock` | Numérico | Capital social. |
+| `sh_equity` | Numérico | Capital contable. |
+| `retained_earnings` | Numérico | Utilidades retenidas. |
+| `total_liabilities_sh_equity` | Numérico | Pasivos totales + capital contable. |
+| `depreciation_amortization` | Numérico | Depreciación y amortización. |
+| `ebitda` | Numérico | EBITDA. |
+| `cf_operations` | Numérico | Flujo de efectivo de operaciones. |
+| `capex` | Numérico | Inversión en activos fijos. |
+| `fcf` | Numérico | Flujo de caja libre. |
+
+#### Fiscales (`p_` y `u_` únicamente)
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `p_fiscal_revenue` | Numérico | Ingresos fiscales declarados del penúltimo período anual. |
+| `p_fiscal_net_profit` | Numérico | Utilidad neta fiscal declarada del penúltimo período anual. |
+| `u_fiscal_revenue` | Numérico | Ingresos fiscales declarados del último período anual. |
+| `u_fiscal_net_profit` | Numérico | Utilidad neta fiscal declarada del último período anual. |
+
+---
+
+### Relaciones con otras hojas
+
+| Hoja | Columna de unión | Descripción |
+|---|---|---|
+| **Creditos** | `rfc` ↔ `Taxpayer ID Number` | Permite asociar el registro de evaluación a las operaciones de crédito del cliente. |
+
+---
+
 ## Historial de cambios
 
 | Fecha | Descripción |
