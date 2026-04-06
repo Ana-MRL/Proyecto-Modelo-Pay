@@ -14,16 +14,16 @@
 ## Fases
 
 ### Fase 1 — Exploración de datos (EDA)
-**Archivo:** `codigo/01-eda.ipynb`
+**Archivo:** `codigo/01-model-coding.ipynb`
 **Estado:** En progreso
 **Fecha de inicio:** 2026-03-27
 **Fecha de cierre:** —
 
-- [ ] Cargar y revisar la base de datos (`data/Base de datos.xlsx`)
-- [ ] Revisar estructura: columnas, tipos de datos, dimensiones
-- [ ] Identificar variables disponibles para clientes y prospectos
-- [ ] Analizar distribución de variables
-- [ ] Detectar valores nulos, duplicados y outliers
+- [x] Cargar y revisar la base de datos (`data/Base de datos.xlsx`)
+- [x] Revisar estructura: columnas, tipos de datos, dimensiones
+- [x] Identificar variables disponibles para clientes y prospectos
+- [x] Analizar distribución de variables (estadísticas descriptivas)
+- [ ] Detectar valores nulos, duplicados y outliers — nulos ✅, duplicados y outliers pendientes
 - [ ] Visualizar correlaciones
 
 ---
@@ -94,3 +94,4 @@
 | 2026-03-27 | Convenciones y reglas definidas en `CLAUDE.md` |
 | 2026-03-27 | Base de datos cargada en `data/` |
 | 2026-03-27 | Plan de trabajo definido y aprobado |
+| 2026-04-06 | Fase 1 EDA iniciada: carga de tablas, estructura, nulos, cobertura y estadísticas descriptivas |
