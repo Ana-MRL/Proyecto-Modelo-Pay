@@ -23,9 +23,18 @@
 - **Tipo de modelo:** clasificación con salida probabilística (score de riesgo)
 - **Herramienta:** Python + Jupyter Notebooks
 
+### Notebooks del proyecto
+
+- `codigo/01-model-coding.ipynb` — Notebook de trabajo principal del proyecto (análisis de cosechas PAY como insumo complementario al modelo)
+- `codigo/CosechasPAY.ipynb` — Notebook original de referencia / respaldo del análisis de cosechas, previo al inicio del proyecto
+
+### Análisis de cosechas
+
+El análisis de cosechas (vintages) para el producto PAY complementa el modelo predictivo. Calcula el % de capital vencido por mes de originación y MOB (Months on Books), y genera una matriz de cosechas visualizada como heatmap.
+
 ### Pendiente
 
-- **Fase 1** — EDA: explorar `data/Base de datos.xlsx` e identificar variables disponibles (`codigo/01-eda.ipynb`)
+- **Fase 1** — EDA: explorar `data/Base de datos.xlsx` e identificar variables disponibles (`codigo/01-model-coding.ipynb`)
 - **Fase 2** — Limpieza y preparación de datos (`codigo/02-data-cleaning.ipynb`)
 - **Fase 3** — Modelado: regresión logística, Random Forest, Gradient Boosting (`codigo/03-modeling.ipynb`)
 - **Fase 4** — Evaluación y selección del modelo final (`codigo/04-evaluation.ipynb`)
