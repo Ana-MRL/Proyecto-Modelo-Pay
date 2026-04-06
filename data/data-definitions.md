@@ -17,6 +17,9 @@ Contiene los registros de líneas de crédito y ministraciones del producto Pay.
 | `Name` | Texto | Nombre de la empresa acreditada. |
 | `Product` | Texto | Producto de la línea de crédito. Para este modelo, se filtran únicamente los registros cuyo nombre contenga la palabra **PAY**. |
 | `Is line` | Texto | Indica si el registro corresponde a la **línea de crédito** (`SI`) o a una **ministración** (`NO`). |
+| `Loan Type` | Texto | Tipo de crédito. Se usa para filtrar únicamente las ministraciones (`MINISTRACION`). |
+| `Period Number` | Numérico | Número de cuotas de la ministración. En el código se renombra a `Cuotas`. |
+| `Cosecha` | Fecha | Mes de originación de la línea de crédito. En el código se renombra a `Originacion`. |
 | `Opening Date` | Fecha | Fecha de apertura de la línea o ministración. |
 | `Due Date` | Fecha | Fecha de vencimiento de la línea o ministración. |
 | `Amount` | Numérico | Monto de la línea o ministración. Ver nota de conversión de divisa abajo. |
@@ -78,6 +81,7 @@ Contiene los registros de pagos y abonos realizados por las empresas acreditadas
 | `Capital` | Numérico | Porción del pago aplicada a capital. Ver nota de conversión de divisa abajo. |
 | `Interest` | Numérico | Porción del pago aplicada a intereses. |
 | `Penalty` | Numérico | Monto pagado en moratorios. Si es mayor a cero, indica que el cliente se atrasó en su pago — variable clave para el modelo. |
+| `Installment` | Numérico | Número de cuota a la que corresponde el abono. En el código se renombra a `Cuota`. |
 | `Payment Currency` | Texto | Divisa del pago. |
 | `Agreed Exchange Rate` | Numérico | Tipo de cambio pactado. Se usa para convertir el capital de pagos en dólares a pesos. |
 
@@ -127,7 +131,7 @@ Contiene el catálogo de personas registradas en el sistema. Para este modelo, s
 | Columna | Tipo | Descripción |
 |---|---|---|
 | `Person Id` | Numérico (ID) | Identificador de la empresa. Llave de unión con las hojas **Creditos** y **Abonos**. |
-| `Full Name` | Texto | Nombre de la empresa. |
+| `Full Name Or Business Name` | Texto | Nombre de la empresa. |
 | `Person Type` | Texto | Indica si es persona física o moral. Se filtran únicamente las **personas morales**. |
 | `Taxpayer ID Number` | Texto | RFC del cliente. |
 | `Person Classification` | Texto | Clasificación del registro (cliente, prospecto, obligado solidario, etc.). Se filtran únicamente los **clientes**. |
