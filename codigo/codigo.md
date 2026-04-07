@@ -141,3 +141,113 @@ Se calculan las estadísticas descriptivas (conteo, media, desviación estándar
 | `annual_invoices_comparisons` | `margin` negativo indica que los gastos superan a los ingresos. `days_sales_outstanding` muy alto indica problemas de cobranza. |
 | `employees` | Empresas con 0 o 1 empleado pueden ser empresas fantasma o holdings. Alta varianza indica heterogeneidad del portafolio. |
 | `csv_vc_pyme` | `pct_pagos_bancarias` ('5') y `pct_pagos_no_bancarias` ('6') cercanos a 1 indican buen historial de pago. `quitas_castigos_12m` ('14') con valor 1 es señal de alerta crítica. |
+
+---
+
+## Celda 11 — Duplicados y outliers
+
+### Duplicados
+
+Para cada tabla se cuenta el número de filas completamente duplicadas (misma combinación de valores en todas las columnas).
+
+**Cómo interpretar:** un duplicado en tablas transaccionales (créditos, abonos) puede indicar un error de carga doble. En tablas con un registro por empresa-año (balance, income), un duplicado es más grave porque distorsionaría el análisis financiero. Si se encuentran duplicados relevantes, deben eliminarse antes de la Fase 2.
+
+### Outliers (método IQR)
+
+Para 13 variables numéricas clave se aplica el método de rango intercuartílico (IQR) con factor 1.5. Un valor se considera outlier si cae fuera del rango:
+
+```
+[Q1 − 1.5 × IQR,  Q3 + 1.5 × IQR]
+```
+
+Las variables analizadas son:
+
+| Variable | Tabla | Qué representa |
+|---|---|---|
+| `Amount` | `pay` | Monto de cada ministración PAY |
+| `Cuotas` | `pay` | Plazo en meses de cada ministración |
+| `DPD` | `payc` | Días de atraso por cuota |
+| `mvenc` | `payc` | Capital vencido por cuota |
+| `MOB` | `payc` | Meses en libros |
+| `total_assets` | `balance_sheet` | Activos totales |
+| `total_liabilities` | `balance_sheet` | Pasivos totales |
+| `sh_equity` | `balance_sheet` | Capital contable |
+| `sales` | `income_statement` | Ventas totales |
+| `net_income` | `income_statement` | Utilidad neta |
+| `total_income` | `annual_invoices_comparisons` | Ingresos totales facturados |
+| `margin` | `annual_invoices_comparisons` | Margen operativo |
+| `total` | `employees` | Número de empleados |
+
+**Cómo interpretar:**
+
+- **% de outliers bajo (<5%):** normal en datos financieros; los casos extremos probablemente son reales (empresas grandes o con comportamiento atípico). Considerar transformaciones logarítmicas en la Fase 2.
+- **% de outliers medio (5–15%):** revisar si corresponden a errores de captura o a empresas genuinamente atípicas. Evaluar si se deben excluir o tratar por separado.
+- **% de outliers alto (>15%):** señal de que la distribución es muy sesgada o que hay problemas de calidad de datos. Requiere atención antes de modelar.
+- **Rango normal:** se imprime el límite inferior y superior del IQR. Valores fuera de ese rango son los candidatos a revisar manualmente.
+
+> Nota: el método IQR es conservador — no elimina outliers, solo los identifica. La decisión de tratamiento se toma en la Fase 2.
+
+---
+
+## Celda 12 — Correlaciones entre variables clave
+
+Se construye una tabla de una fila por cliente PAY combinando variables financieras y de comportamiento crediticio, y se visualiza su correlación de Pearson.
+
+### Lógica de fuentes (prioridad)
+
+Para las variables de balance e ingresos se aplica una jerarquía de fuentes:
+
+| Prioridad | Fuente | Variables |
+|---|---|---|
+| 1 (primaria) | `balance_sheet` | `total_assets`, `total_liabilities`, `sh_equity`, `current_assets`, `current_liabilities`, `current_debt`, `lt_debt` |
+| 1 (primaria) | `income_statement` | `sales`, `gross_income`, `operating_income`, `net_income` |
+| 2 (fallback) | `xls_registro` | Columnas `u_*` equivalentes — solo para clientes sin datos en las fuentes primarias |
+
+`xls_registro` se usa exclusivamente como respaldo para no perder clientes con datos financieros disponibles en ese registro pero ausentes en las fuentes primarias. La unión con `xls_registro` se hace por RFC.
+
+> Nota: en el fallback, `u_lt_liabilities` (pasivos de largo plazo) se usa como proxy de `lt_debt` (deuda de largo plazo). Ambas miden deuda a largo plazo pero no son idénticas.
+
+Al ejecutar la celda se imprime un resumen de cuántos clientes se completaron desde cada fuente.
+
+### Variables incluidas en la matriz de correlación
+
+| Grupo | Variables |
+|---|---|
+| Balance | `total_assets`, `total_liabilities`, `sh_equity`, `current_assets`, `current_liabilities`, `current_debt`, `lt_debt` |
+| Resultados | `sales`, `gross_income`, `operating_income`, `net_income` |
+| Comportamiento crediticio | `dpd_max` (máximo DPD del cliente), `mvenc_total` (capital vencido acumulado), `mob_max` (MOB máximo) |
+
+### Cómo interpretar el heatmap
+
+El heatmap muestra el triángulo inferior de la matriz de correlación de Pearson. Los valores van de −1 a 1:
+
+| Valor | Interpretación |
+|---|---|
+| Cercano a **+1** | Relación positiva fuerte — ambas variables crecen juntas |
+| Cercano a **−1** | Relación negativa fuerte — cuando una sube, la otra baja |
+| Cercano a **0** | Sin relación lineal |
+
+**Qué buscar específicamente:**
+
+- **Correlación entre variables financieras y `dpd_max` / `mvenc_total`:** indica si el tamaño o salud financiera de la empresa se relaciona con su comportamiento de pago. Una correlación negativa entre `sh_equity` y `dpd_max` sugiere que empresas con mayor capital propio pagan mejor.
+- **Multicolinealidad:** correlaciones muy altas (>0.9) entre variables predictoras (ej. `total_assets` y `sales`) indican que aportan información redundante. En la Fase 3 se deberá seleccionar una o combinarlas.
+- **Variables con baja correlación con todo:** pueden ser poco informativas para el modelo o tener una relación no lineal que Pearson no captura.
+- **`mob_max` y `dpd_max`:** se espera correlación positiva — a más tiempo en libros, mayor probabilidad de haber tenido algún atraso en algún momento.
+
+---
+
+## Celda 13 — Factor de Inflación de la Varianza (FIV)
+
+Complementa la correlación de Pearson para detectar multicolinealidad. Mientras que Pearson analiza pares de variables, el FIV mide cuánto se puede explicar una variable a partir de todas las demás en conjunto — lo que permite detectar colinealidad múltiple que Pearson no captura.
+
+Se usa `variance_inflation_factor` de `statsmodels`. El cálculo requiere datos completos, por lo que se eliminan filas con nulos antes de correr el análisis.
+
+**Cómo interpretar:**
+
+| FIV | Nivel | Acción recomendada en Fase 2 |
+|---|---|---|
+| < 5 | Aceptable ✓ | Incluir en el modelo sin cambios |
+| 5 – 10 | Moderada ~ | Evaluar si aporta información adicional; considerar eliminar o combinar |
+| > 10 | Severa ⚠ | Eliminar del modelo o reemplazar por una variable compuesta (ej. ratio) |
+
+**Qué esperar:** variables del mismo estado financiero tienden a tener FIV alto entre sí — por ejemplo `total_assets`, `total_liabilities` y `sh_equity` están relacionadas por identidad contable (`Activos = Pasivos + Capital`), por lo que es normal que tengan FIV elevado. En ese caso, la solución es construir ratios (ej. `apalancamiento = total_liabilities / sh_equity`) en lugar de incluir las tres variables por separado.
