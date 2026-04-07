@@ -30,15 +30,17 @@
 
 ### Fase 2 — Limpieza y preparación de datos
 **Archivo:** `codigo/02-data-cleaning.ipynb`
-**Estado:** Pendiente
-**Fecha de inicio:** —
+**Estado:** En progreso
+**Fecha de inicio:** 2026-04-07
 **Fecha de cierre:** —
 
-- [ ] Tratar valores nulos (imputación o eliminación)
+- [x] Construir variable objetivo (DPD > 30 por cliente)
+- [x] Construir features por cliente (crediticias, financieras, Buró, SAT, empleados)
+- [x] Tratar valores nulos (imputación con mediana)
 - [ ] Codificar variables categóricas
-- [ ] Normalizar/estandarizar variables numéricas
-- [ ] Dividir en conjunto de entrenamiento y prueba
-- [ ] Guardar datasets procesados en `data/`
+- [x] Normalizar/estandarizar variables numéricas (StandardScaler)
+- [x] Dividir en conjunto de entrenamiento y prueba (80/20 estratificado)
+- [x] Guardar datasets procesados en `data/`
 
 ---
 
@@ -96,3 +98,4 @@
 | 2026-03-27 | Plan de trabajo definido y aprobado |
 | 2026-04-06 | Fase 1 EDA iniciada: carga de tablas, estructura, nulos, cobertura y estadísticas descriptivas |
 | 2026-04-07 | Fase 1 EDA completada: duplicados, outliers (IQR), correlaciones (Pearson + FIV) |
+| 2026-04-07 | Fase 2 iniciada: notebook 02-data-cleaning.ipynb creado |
