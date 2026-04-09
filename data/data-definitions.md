@@ -25,6 +25,7 @@ Contiene los registros de líneas de crédito y ministraciones del producto Pay.
 | `Amount` | Numérico | Monto de la línea o ministración. Ver nota de conversión de divisa abajo. |
 | `Currency` | Texto | Divisa del registro. |
 | `Agreed Exchange Rate` | Numérico | Tipo de cambio pactado. Se usa para convertir montos en dólares a pesos. |
+| `Interest Rate` | Numérico | Tasa de interés anual del crédito. Se usa como variable predictora en el modelo (`tasa_interes`). |
 | `Loan Status` | Texto | Estado de la línea. Solo indica si fue **liquidada** o sigue **activa** — no refleja atrasos. El cálculo de morosidad deberá construirse por nuestra parte. |
 
 ---
@@ -534,3 +535,4 @@ Las siguientes columnas existen con los tres prefijos. Ejemplo: `p_revenue`, `u_
 | 2026-04-06 | Definición de la hoja superia_entity |
 | 2026-04-06 | Definición de la hoja csv_vc_pyme |
 | 2026-04-06 | Definición de la hoja xls_registro |
+| 2026-04-09 | Agrega `Interest Rate` como columna relevante en Creditos |
