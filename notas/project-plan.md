@@ -51,6 +51,12 @@
 **Fecha de cierre:** —
 
 - [ ] Definir features finales (compatibles con clientes y prospectos)
+- [ ] Construir features agregadas de atraso a nivel cliente/línea desde `payc`:
+  - `capital_vencido_total` — suma de `mvenc`
+  - `pct_capital_vencido` — `mvenc / Amount`
+  - `cuotas_en_atraso` — count donde `DPD > 0`
+  - `max_dpd` — máximo DPD registrado
+  - `capital_vencido_ultimo_mob` — capital vencido en el MOB más reciente
 - [ ] Entrenar modelos candidatos:
   - [ ] Regresión logística (baseline)
   - [ ] Random Forest

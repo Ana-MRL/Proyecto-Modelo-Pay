@@ -2,6 +2,21 @@
 
 ---
 
+## Avance del proyecto — 2026-04-09
+
+### Estado actual
+
+- `2026-04-09` — Revisión y propagación de mejoras de `CosechasPAY.ipynb` a los notebooks `01-model-coding`, `02-data-cleaning` y `analisis-atrasos`:
+  - Agregada columna `Capital cuota = Amount / Cuotas` en `pay` antes del expand
+  - `fcp` ahora retorna `pd.to_datetime(duedate)` explícitamente
+  - `dpdp` usa `row['Fecha vencimiento cuota']` en vez de recalcular inline
+  - Removido `errors='coerce'` del filtro de `Fecha vencimiento cuota`
+  - Agregada lógica condicional de `Application Date` con `np.where`: si `Capital == Capital cuota`, usa la fecha real; si no, asigna `date.today()`
+  - Corregido tipo datetime en `fillna` (`pd.to_datetime(date.today())`) para evitar error de incompatibilidad con `Timestamp`
+- `2026-04-09` — Decisión de feature engineering para Fase 3: el capital vencido por cuota (`mvenc`, `DPD`) se usará agregado a nivel cliente/línea, no a nivel cuota individual (ver Fase 3 en plan)
+
+---
+
 ## Avance del proyecto — 2026-04-06
 
 ### Estado actual
