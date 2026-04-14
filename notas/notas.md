@@ -2,6 +2,18 @@
 
 ---
 
+## Avance del proyecto — 2026-04-14 (tarde)
+
+### Estado actual
+
+- `2026-04-14` — Ampliados los ratios financieros en `02-data-cleaning.ipynb` (sección 6.2) para reducir multicolinealidad:
+  - **Balance:** agregados `deuda_activos`, `capital_activos`, `prueba_acida`, `razon_efectivo`, `pct_deuda_cp`, `pct_activos_corrientes`; también se jalan `cash_equivalents`, `accounts_receivable`, `inventory` del balance primario y sus equivalentes del fallback `xls_registro`
+  - **Income statement:** agregados `carga_financiera` (costos financieros / ventas), `cobertura_intereses` (EBIT / costos financieros); se agrega `cost_finance` / `u_interest_expense` como fuente
+  - **Ratios cruzados balance+income:** `roa` (utilidad neta / activos), `roe` (utilidad neta / capital), `rotacion_activos` (ventas / activos)
+- `2026-04-14` — Creado `notas/variables-candidatas.md` con inventario completo de variables disponibles, recomendación de uso y notas de colinealidad por fuente
+
+---
+
 ## Avance del proyecto — 2026-04-14
 
 ### Estado actual
