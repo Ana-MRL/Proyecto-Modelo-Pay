@@ -2,6 +2,21 @@
 
 ---
 
+## Avance del proyecto — 2026-04-14
+
+### Estado actual
+
+- `2026-04-14` — Corrección en lógica de `Application Date` en `CosechasPAY.ipynb`, `02-data-cleaning.ipynb` y `analisis-atrasos.ipynb`:
+  - Bug: la condición `Capital == Capital cuota` usaba igualdad exacta, lo que descartaba pagos reales con diferencias de redondeo de ±1 peso, reemplazando su fecha con `date.today()` y clasificando la cuota como ABIERTA
+  - Fix: cambiada a `(Capital - Capital cuota).abs() <= 1` para tolerar diferencias de redondeo sin afectar abonos parciales reales
+- `2026-04-14` — Agregado cálculo de `Capital cuota` con método de amortización francesa para ministraciones de producto `SUPERIA PAY` en los tres notebooks:
+  - Fórmula: `K_k = C / (1+r)^(n-k+1)` donde `C = P·r / (1-(1+r)^-n)` y `r = Interest Rate / 12`
+  - Para producto `PAY` se mantiene el método lineal `Amount / Cuotas`
+  - El capital amortizado varía por número de cuota, reflejando correctamente la estructura de pago
+- `2026-04-14` — `data/Base de datos.xlsx` actualizada con pagos recientes
+
+---
+
 ## Avance del proyecto — 2026-04-09
 
 ### Estado actual
