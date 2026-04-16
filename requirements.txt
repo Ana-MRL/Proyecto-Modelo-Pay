@@ -1,0 +1,21 @@
+# Análisis y manipulación de datos
+pandas>=2.1,<3.0
+numpy>=2.0
+openpyxl
+
+# Visualización
+matplotlib>=3.0
+seaborn
+
+# Machine learning y estadística
+scikit-learn
+statsmodels
+lifelines
+
+# Utilidades de fechas
+python-dateutil
+
+# Jupyter y notebooks
+jupyter
+ipywidgets
+itables
